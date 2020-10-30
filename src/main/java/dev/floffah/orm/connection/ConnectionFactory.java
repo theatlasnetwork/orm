@@ -3,6 +3,7 @@ package dev.floffah.orm.connection;
 import dev.floffah.orm.connection.type.ConnectionType;
 import dev.floffah.orm.connection.type.MySQL;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 
 public class ConnectionFactory {
@@ -37,9 +38,18 @@ public class ConnectionFactory {
     String password;
     String database;
 
+    /**
+     * Creates a connection
+     *
+     * @return the created connection
+     */
     public Connection build() {
-        ConnectionType type = new MySQL();
-        build = new Connection(type);
+        if(dbtype.equals("mysql")) {
+            MySQL type = new MySQL();
+            type.setCredentials(username, password);
+            type.setURL("jdbc:mysql://" + host + ":" + port + "/" + database + "?user=" + username + "&password=" + password);
+            build = new Connection(type);
+        }
         return build;
     }
 

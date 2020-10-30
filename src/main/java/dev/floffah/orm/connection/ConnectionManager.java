@@ -1,10 +1,12 @@
 package dev.floffah.orm.connection;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectionManager {
     List<ConnectionFactory> uninit = new ArrayList<>();
+    List<Connection> connections = new ArrayList<>();
 
     public ConnectionManager() {
 
@@ -29,5 +31,16 @@ public class ConnectionManager {
      */
     public void addFactory(ConnectionFactory factory) {
         uninit.add(factory);
+    }
+
+    /**
+     * Connect all created ConnectionFactorys
+     *
+     * @throws SQLException The SQLException thrown when creating a connection
+     */
+    public void connectAll() throws SQLException {
+        uninit.forEach(factory -> {
+            connections.add(factory.build());
+        });
     }
 }
