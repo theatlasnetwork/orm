@@ -20,7 +20,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <show>private</show>
+                    <show>public</show>
                     <nohelp>true</nohelp>
                     <reportOutputDirectory>${basedir}/docs</reportOutputDirectory>
                     <destDir>docs</destDir>
@@ -33,6 +33,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
