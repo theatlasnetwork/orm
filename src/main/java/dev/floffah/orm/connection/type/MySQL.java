@@ -6,7 +6,11 @@ import java.sql.SQLException;
 
 public class MySQL extends ConnectionType {
     public MySQL() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ignored) {
 
+        }
     }
 
     String username;
@@ -38,6 +42,6 @@ public class MySQL extends ConnectionType {
      */
     @Override
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url);
+        return DriverManager.getConnection(url, username, password);
     }
 }

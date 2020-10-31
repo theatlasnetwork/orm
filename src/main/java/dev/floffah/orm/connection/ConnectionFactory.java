@@ -1,9 +1,7 @@
 package dev.floffah.orm.connection;
 
-import dev.floffah.orm.connection.type.ConnectionType;
 import dev.floffah.orm.connection.type.MySQL;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 
 public class ConnectionFactory {
@@ -26,7 +24,7 @@ public class ConnectionFactory {
         this.manager = manager;
     }
 
-    Connection build;
+    ORMConnection build;
 
     String dbtype;
 
@@ -43,12 +41,12 @@ public class ConnectionFactory {
      *
      * @return the created connection
      */
-    public Connection build() {
+    public ORMConnection build() {
         if(dbtype.equals("mysql")) {
             MySQL type = new MySQL();
             type.setCredentials(username, password);
             type.setURL("jdbc:mysql://" + host + ":" + port + "/" + database + "?user=" + username + "&password=" + password);
-            build = new Connection(type);
+            build = new ORMConnection(type, manager);
         }
         return build;
     }
